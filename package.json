@@ -1,0 +1,30 @@
+{
+  "name": "photo-gallery-react",
+  "version": "1.0.0",
+  "description": "A photo gallery using flickr api, allowing users to view images and search flickr for images.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aniketdatta47/react-image-gallery.git"
+  },
+  "author": "Aniket Datta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aniketdatta47/react-image-gallery/issues"
+  },
+  "homepage": "https://github.com/aniketdatta47/react-image-gallery#readme",
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.13.3"
+  }
+}
