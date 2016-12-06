@@ -1,1 +1,2 @@
-console.log('Basic structure test...');
+import React from 'react';
+import {render} from 'react-dom';

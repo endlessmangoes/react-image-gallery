@@ -3,8 +3,16 @@ Front-end only react based image gallery, which features a grid of images and a 
 
 ## Packages and resources
 
-- React - latest build
-- Material design lite - for the grid and overall design.
-- Public photo & video flickr api URL - https://api.flickr.com/services/feeds/photos_public.gne 
-- Docs for api -> https://www.flickr.com/services/feeds/
+- React - latest build v15
+- Babel
+- Material design lite - for the grid and overall design
+- Material docs -> https://getmdl.io/
+- Public photo & video flickr api URL - https://api.flickr.com/services/feeds/photos_public.gne
+- Docs for flickr api -> https://www.flickr.com/services/feeds/
 
+## Getting started
+
+- Clone repo
+- cd into directory and npm install
+- npm run build
+- open index.html using Chrome.
