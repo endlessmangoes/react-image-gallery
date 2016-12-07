@@ -5,6 +5,18 @@
 		<title>Photo Gallery</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.yellow-red.min.css" />
+		<style>
+		/* Shell style: These are for some basic styling if, nothing loads.*/
+
+		/* make cards atleast 33 % of screen height*/
+		img {
+		    min-height: 33vh;
+		    background-position: center;
+		    background-size: cover;
+		}
+
+
+		</style>
 	</head>
 
 	<body>
@@ -22,9 +34,9 @@
 					</div>
 				</header>
 				<div class="mdl-layout__drawer">
-					<span class="mdl-layout-title">Title</span>
+					<span class="mdl-layout-title">Photo Gallery</span>
 					<nav class="mdl-navigation">
-						<a class="mdl-navigation__link" href="#">Nothing</a>
+						<a class="mdl-navigation__link" href="#">Menu</a>
 					</nav>
 				</div>
 				<main class="mdl-layout__content">
@@ -38,6 +50,10 @@
 			</div>
 	</body>
 	<footer>
+		<script
+		  src="https://code.jquery.com/jquery-3.1.1.min.js"
+		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		  crossorigin="anonymous"></script>
 		<script src="public/bundle.js" type="text/javascript"></script>
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 	</footer>

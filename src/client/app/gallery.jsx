@@ -16,14 +16,16 @@ class Photo extends React.Component {
 		// hide loading animation..
 		// update state
 		this.setState({'state': 'done'});
-
 	}
 
 
   render() {
 		if (this.state.state === 'loading') {
+			// display a loading symbol if image hasn't loaded
 			return (
-				<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+				<div className='photo mdl-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-shadow--2dp'>
+					<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+				</div>
 			);
 		}
 
@@ -100,7 +102,23 @@ class SearchInput extends React.Component {
 	}
 
 	handleInput(event) {
-		console.log(event);
+		console.info('Value');
+		console.log(event.target.value);
+
+		let url = 'https://api.flickr.com/services/feeds/photos_public.gne';
+		// basic user validation
+		if (!event.target.value) {
+			return false;
+		}
+
+		url = url + '?' + event.target.value;
+
+		$.get(url).then(function(data) {
+		  debugger;
+		})
+		.catch(function(error) {
+		  console.log('Issue trying to get..: ' + error.message);
+		});
 	}
 
   render() {

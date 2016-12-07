@@ -92,7 +92,12 @@
 					key: 'render',
 					value: function render() {
 							if (this.state.state === 'loading') {
-									return _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' });
+									// display a loading symbol if image hasn't loaded
+									return _react2.default.createElement(
+											'div',
+											{ className: 'photo mdl-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-shadow--2dp' },
+											_react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' })
+									);
 							}
 	
 							return _react2.default.createElement(
@@ -198,7 +203,22 @@
 			_createClass(SearchInput, [{
 					key: 'handleInput',
 					value: function handleInput(event) {
-							console.log(event);
+							console.info('Value');
+							console.log(event.target.value);
+	
+							var url = 'https://api.flickr.com/services/feeds/photos_public.gne';
+							// basic user validation
+							if (!event.target.value) {
+									return false;
+							}
+	
+							url = url + '?' + event.target.value;
+	
+							$.get(url).then(function (data) {
+									debugger;
+							}).catch(function (error) {
+									console.log('Issue trying to get..: ' + error.message);
+							});
 					}
 			}, {
 					key: 'render',
