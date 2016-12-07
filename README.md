@@ -16,3 +16,12 @@ Front-end only react based image gallery, which features a grid of images and a 
 - cd into directory and npm install
 - npm run build
 - open index.html using Chrome.
+
+
+## yeoman/
+
+Yeoman to generate a start up boilerplate for Gallery.
+
+cd yeoman/
+- npm install
+- npm start to run
