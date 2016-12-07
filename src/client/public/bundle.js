@@ -69,15 +69,32 @@
 	var Photo = function (_React$Component) {
 			_inherits(Photo, _React$Component);
 	
-			function Photo() {
+			function Photo(props) {
 					_classCallCheck(this, Photo);
 	
-					return _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).apply(this, arguments));
+					var _this = _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).call(this, props));
+	
+					_this.src = '';
+					_this.title = 'Loading...';
+					_this.state = { 'state': 'loading' };
+					return _this;
 			}
 	
 			_createClass(Photo, [{
+					key: 'componentDidMount',
+					value: function componentDidMount() {
+							// photo has been added to document
+							// hide loading animation..
+							// update state
+							this.setState({ 'state': 'done' });
+					}
+			}, {
 					key: 'render',
 					value: function render() {
+							if (this.state.state === 'loading') {
+									return _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' });
+							}
+	
 							return _react2.default.createElement(
 									'div',
 									{ className: 'photo mdl-card mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-shadow--2dp' },
@@ -131,7 +148,8 @@
 	// test data...from flickr api
 	
 	
-	var data = [{
+	var data = [//];
+	{
 			"title": "Leica Q (Typ 116) : December 4, 2016",
 			"url": "https:\/\/www.flickr.com\/photos\/sotome\/30624837144\/",
 			"media": { "m": "https:\/\/farm6.staticflickr.com\/5595\/30624837144_cfca1be9c4_m.jpg" },
@@ -163,10 +181,43 @@
 			"tags": "concert kaleo photopetervanheun live music paradiso"
 	}];
 	
+	// search input
+	
+	var SearchInput = function (_React$Component3) {
+			_inherits(SearchInput, _React$Component3);
+	
+			function SearchInput(props) {
+					_classCallCheck(this, SearchInput);
+	
+					var _this3 = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
+	
+					_this3.handleInput = _this3.handleInput.bind(_this3);
+					return _this3;
+			}
+	
+			_createClass(SearchInput, [{
+					key: 'handleInput',
+					value: function handleInput(event) {
+							console.log(event);
+					}
+			}, {
+					key: 'render',
+					value: function render() {
+							return _react2.default.createElement('input', { className: 'mdl-textfield__input', type: 'text', name: 'search', id: 'search', onChange: this.handleInput });
+					}
+			}]);
+	
+			return SearchInput;
+	}(_react2.default.Component);
 	// basic 3 photos?
+	
+	
 	var Grid = _react2.default.createElement(PhotoGrid, { photos: data });
 	
+	var Search = _react2.default.createElement(SearchInput, null);
+	
 	(0, _reactDom.render)(Grid, document.getElementById('app'));
+	(0, _reactDom.render)(Search, document.getElementById('search-container'));
 
 /***/ },
 /* 1 */
