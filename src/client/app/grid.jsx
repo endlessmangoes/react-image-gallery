@@ -82,8 +82,12 @@ class Photo extends React.Component {
 
 // photo grid..
 class PhotoGrid extends React.Component {
-	getInitialState() {
-		return { data: [] };
+	constructor(props) {
+		super(props);
+		this.state = {
+			'state': 'loading',
+			'photos': []
+		};
 	}
 
 	componentWillMount(){
@@ -103,22 +107,21 @@ class PhotoGrid extends React.Component {
       url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
     }).done(function(result) {
 			console.info(result.stat);
-      this.setState({ data: result.photos.photo });
-			console.info('Updated grid state.');
+      this.setState({
+				'photos': result.photos.photo
+			});
     }.bind(this));
 	}
 
 
   render() {
-		if (this.state.data.length < 1) {
+		if (this.state.photos.length < 1) {
 			return (<div> NOTHING!!!!</div>);
 		}
 
-		debugger;
-		var photodata = this.state.data;
-
-    var photos = this.props.photos.map((photodata) => {
-      return <Photo key={photo.author_id} src={photo.media.m} title={photo.title} />;
+    var photos = this.state.photos.map((photo) => {
+			let photoSrc = "https://farm"+ photo.farm +".static.flickr.com/"+ photo.server +"/"+ photo.id +"_"+ photo.secret +"_m.jpg";
+      return <Photo key={photo.owner} src={photoSrc} title={photo.title} />;
     });
 
     return (

@@ -161,18 +161,19 @@
 	var PhotoGrid = function (_React$Component2) {
 		_inherits(PhotoGrid, _React$Component2);
 	
-		function PhotoGrid() {
+		function PhotoGrid(props) {
 			_classCallCheck(this, PhotoGrid);
 	
-			return _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).apply(this, arguments));
+			var _this2 = _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).call(this, props));
+	
+			_this2.state = {
+				'state': 'loading',
+				'photos': []
+			};
+			return _this2;
 		}
 	
 		_createClass(PhotoGrid, [{
-			key: 'getInitialState',
-			value: function getInitialState() {
-				return { data: [] };
-			}
-		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.dataSource();
@@ -193,14 +194,15 @@
 					url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
 				}).done(function (result) {
 					console.info(result.stat);
-					this.setState({ data: result.photos.photo });
-					console.info('Updated grid state.');
+					this.setState({
+						'photos': result.photos.photo
+					});
 				}.bind(this));
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				if (this.state.data.length < 1) {
+				if (this.state.photos.length < 1) {
 					return _react2.default.createElement(
 						'div',
 						null,
@@ -208,11 +210,9 @@
 					);
 				}
 	
-				debugger;
-				var photodata = this.state.data;
-	
-				var photos = this.props.photos.map(function (photodata) {
-					return _react2.default.createElement(Photo, { key: photo.author_id, src: photo.media.m, title: photo.title });
+				var photos = this.state.photos.map(function (photo) {
+					var photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_m.jpg";
+					return _react2.default.createElement(Photo, { key: photo.owner, src: photoSrc, title: photo.title });
 				});
 	
 				return _react2.default.createElement(
