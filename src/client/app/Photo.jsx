@@ -14,7 +14,9 @@ class Photo extends React.Component {
 		if (!this.props.title || !this.props.src) {
 			// display a loading symbol if image hasn't loaded
 			return (
-				<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+				<div className='photo mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--2dp'>
+					<div className="gallery-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+				</div>
 			);
 		}
 
@@ -26,7 +28,7 @@ class Photo extends React.Component {
           <span>{this.props.title}</span>
         </div>
       </div>
-    );
+    )
   }
 }
 

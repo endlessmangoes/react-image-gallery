@@ -1,55 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Photo from './Photo.jsx';
-var data = [];
-
-// photo grid..
-class PhotoGrid extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
-  render() {
-		if (this.props.photos.length < 1) {
-			return (
-				<div className='center mdl-grid'>
-					<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-				</div>);
-		}
-
-		// build photo cards
-    var photos = this.props.photos.map((photo) => {
-			let photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/"+ photo.id + "_" + photo.secret + "_m.jpg";
-      return <Photo key={photo.owner} src={photoSrc} title={photo.title} />;
-    });
-
-		// return a grid of photo cards
-    return (
-			<div className='photo-grid mdl-grid'>
-        {photos}
-      </div>
-    );
-  }
-}
-
-
-// search input
-class SearchInput extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleInput = this.handleInput.bind(this);
-	}
-
-	handleInput(event) {
-		this.props.onChange(event.target.value);
-	}
-
-  render() {
-    return (
-			 <input className='mdl-textfield__input' type="text" name="search" id="search" onChange={this.handleInput} />
-    );
-  }
-}
+import PhotoGrid from './PhotoGrid.jsx';
+import SearchInput from './SearchInput.jsx';
 
 class Layout extends React.Component {
 	constructor(props) {
@@ -130,17 +83,3 @@ class Layout extends React.Component {
 }
 
 render(<Layout />, document.getElementById('app'));
-
-/*
-
-		let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bcc3bbb71c12693b4f2fde281bd75cdd"
-			+ "&tags='" + event.target.value + "'&format=json&jsoncallback=?";
-
-		$.getJSON(url)
-			.done(function(req, res) {
-		  	debugger;
-			})
-			.error(function(error) {
-		  	console.log('Issue trying to get..: ' + error.message);
-			});
-			*/
