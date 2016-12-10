@@ -6,19 +6,14 @@ var data = [];
 class Photo extends React.Component {
   constructor(props) {
     super(props);
+
+		// default src and title
     this.src = '';
 		this.title = '';
-		this.state = {'state': 'loading'};
   }
 
-
-	componentDidMount() {
-		this.setState({'state': 'done'});
-	}
-
-
   render() {
-		if (this.state.state === 'loading') {
+		if (!this.props.title || !this.props.src) {
 			// display a loading symbol if image hasn't loaded
 			return (
 				<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
@@ -41,49 +36,23 @@ class Photo extends React.Component {
 class PhotoGrid extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			'state': 'loading',
-			'photos': []
-		};
 	}
-
-	componentWillMount(){
-		this.dataSource();
-	}
-
-	componentWillReceiveProps(nextProps){
-		this.dataSource(nextProps);
-	}
-
-	dataSource(props) {
-		props = props || this.props;
-
-    return $.getJSON({
-      type: "get",
-      dataType: 'json',
-      url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
-    }).done(function(result) {
-			console.info(result.stat);
-      this.setState({
-				'photos': result.photos.photo
-			});
-    }.bind(this));
-	}
-
 
   render() {
-		if (this.state.photos.length < 1) {
+		if (this.props.photos.length < 1) {
 			return (
-				<div className='photo-grid mdl-grid'>
+				<div className='center mdl-grid'>
 					<div className="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
 				</div>);
 		}
 
-    var photos = this.state.photos.map((photo) => {
-			let photoSrc = "https://farm"+ photo.farm +".static.flickr.com/"+ photo.server +"/"+ photo.id +"_"+ photo.secret +"_m.jpg";
+		// build photo cards
+    var photos = this.props.photos.map((photo) => {
+			let photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/"+ photo.id + "_" + photo.secret + "_m.jpg";
       return <Photo key={photo.owner} src={photoSrc} title={photo.title} />;
     });
 
+		// return a grid of photo cards
     return (
 			<div className='photo-grid mdl-grid'>
         {photos}
@@ -116,11 +85,30 @@ class Layout extends React.Component {
 		super(props);
 		this.searchInputChange = this.searchInputChange.bind(this);
 
-		this.setState = {
+		this.state = {
 			'state': 'loading',
 			'photos': [],
 			'tags': ''
 		}
+	}
+
+	componentWillMount(){
+		this.getPhotos();
+	}
+
+	getPhotos(props) {
+
+		debugger;
+		return $.getJSON({
+			type: "get",
+			dataType: 'json',
+			url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
+		}).done(function(result) {
+			console.info(result.stat);
+			this.setState({
+				'photos': result.photos.photo
+			});
+		}.bind(this));
 	}
 
 	searchInputChange(value) {
@@ -128,7 +116,9 @@ class Layout extends React.Component {
 	}
 
 	render() {
-		const tags = this.setState.tags;
+		const tags = this.state.tags;
+		const photos = this.state.photos;
+
 		return (
 			<div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 				<header className="mdl-layout__header">
@@ -152,7 +142,7 @@ class Layout extends React.Component {
 				</div>
 				<main className="mdl-layout__content">
 					<div className="page-content">
-						<PhotoGrid photos={data}></PhotoGrid>
+						<PhotoGrid photos={photos}></PhotoGrid>
 					</div>
 				</main>
 			</div>
@@ -160,7 +150,7 @@ class Layout extends React.Component {
 	}
 }
 
-render(React.createElement(Layout), document.getElementById('app'));
+render(<Layout />, document.getElementById('app'));
 
 /*
 

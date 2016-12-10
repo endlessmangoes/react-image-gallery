@@ -75,23 +75,18 @@
 		function Photo(props) {
 			_classCallCheck(this, Photo);
 	
+			// default src and title
 			var _this = _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).call(this, props));
 	
 			_this.src = '';
 			_this.title = '';
-			_this.state = { 'state': 'loading' };
 			return _this;
 		}
 	
 		_createClass(Photo, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.setState({ 'state': 'done' });
-			}
-		}, {
 			key: 'render',
 			value: function render() {
-				if (this.state.state === 'loading') {
+				if (!this.props.title || !this.props.src) {
 					// display a loading symbol if image hasn't loaded
 					return _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' });
 				}
@@ -125,57 +120,27 @@
 		function PhotoGrid(props) {
 			_classCallCheck(this, PhotoGrid);
 	
-			var _this2 = _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).call(this, props));
-	
-			_this2.state = {
-				'state': 'loading',
-				'photos': []
-			};
-			return _this2;
+			return _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).call(this, props));
 		}
 	
 		_createClass(PhotoGrid, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				this.dataSource();
-			}
-		}, {
-			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(nextProps) {
-				this.dataSource(nextProps);
-			}
-		}, {
-			key: 'dataSource',
-			value: function dataSource(props) {
-				props = props || this.props;
-	
-				return $.getJSON({
-					type: "get",
-					dataType: 'json',
-					url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
-				}).done(function (result) {
-					console.info(result.stat);
-					this.setState({
-						'photos': result.photos.photo
-					});
-				}.bind(this));
-			}
-		}, {
 			key: 'render',
 			value: function render() {
-				if (this.state.photos.length < 1) {
+				if (this.props.photos.length < 1) {
 					return _react2.default.createElement(
 						'div',
-						{ className: 'photo-grid mdl-grid' },
+						{ className: 'center mdl-grid' },
 						_react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' })
 					);
 				}
 	
-				var photos = this.state.photos.map(function (photo) {
+				// build photo cards
+				var photos = this.props.photos.map(function (photo) {
 					var photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_m.jpg";
 					return _react2.default.createElement(Photo, { key: photo.owner, src: photoSrc, title: photo.title });
 				});
 	
+				// return a grid of photo cards
 				return _react2.default.createElement(
 					'div',
 					{ className: 'photo-grid mdl-grid' },
@@ -227,7 +192,7 @@
 	
 			_this4.searchInputChange = _this4.searchInputChange.bind(_this4);
 	
-			_this4.setState = {
+			_this4.state = {
 				'state': 'loading',
 				'photos': [],
 				'tags': ''
@@ -236,6 +201,27 @@
 		}
 	
 		_createClass(Layout, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				this.getPhotos();
+			}
+		}, {
+			key: 'getPhotos',
+			value: function getPhotos(props) {
+	
+				debugger;
+				return $.getJSON({
+					type: "get",
+					dataType: 'json',
+					url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
+				}).done(function (result) {
+					console.info(result.stat);
+					this.setState({
+						'photos': result.photos.photo
+					});
+				}.bind(this));
+			}
+		}, {
 			key: 'searchInputChange',
 			value: function searchInputChange(value) {
 				this.setState({ tags: value });
@@ -243,7 +229,9 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var tags = this.setState.tags;
+				var tags = this.state.tags;
+				var photos = this.state.photos;
+	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'mdl-layout mdl-js-layout mdl-layout--fixed-header' },
@@ -298,7 +286,7 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'page-content' },
-							_react2.default.createElement(PhotoGrid, { photos: data })
+							_react2.default.createElement(PhotoGrid, { photos: photos })
 						)
 					)
 				);
@@ -308,7 +296,7 @@
 		return Layout;
 	}(_react2.default.Component);
 	
-	(0, _reactDom.render)(_react2.default.createElement(Layout), document.getElementById('app'));
+	(0, _reactDom.render)(_react2.default.createElement(Layout, null), document.getElementById('app'));
 	
 	/*
 	
