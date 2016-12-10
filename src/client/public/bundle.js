@@ -57,6 +57,10 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
+	var _Photo = __webpack_require__(/*! ./Photo.jsx */ 178);
+	
+	var _Photo2 = _interopRequireDefault(_Photo);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67,55 +71,10 @@
 	
 	var data = [];
 	
-	// photo component..
-	
-	var Photo = function (_React$Component) {
-		_inherits(Photo, _React$Component);
-	
-		function Photo(props) {
-			_classCallCheck(this, Photo);
-	
-			// default src and title
-			var _this = _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).call(this, props));
-	
-			_this.src = '';
-			_this.title = '';
-			return _this;
-		}
-	
-		_createClass(Photo, [{
-			key: 'render',
-			value: function render() {
-				if (!this.props.title || !this.props.src) {
-					// display a loading symbol if image hasn't loaded
-					return _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' });
-				}
-	
-				return _react2.default.createElement(
-					'div',
-					{ className: 'photo mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--2dp' },
-					_react2.default.createElement('img', { src: this.props.src }),
-					_react2.default.createElement(
-						'div',
-						{ className: 'mdl-card__title' },
-						_react2.default.createElement(
-							'span',
-							null,
-							this.props.title
-						)
-					)
-				);
-			}
-		}]);
-	
-		return Photo;
-	}(_react2.default.Component);
-	
 	// photo grid..
 	
-	
-	var PhotoGrid = function (_React$Component2) {
-		_inherits(PhotoGrid, _React$Component2);
+	var PhotoGrid = function (_React$Component) {
+		_inherits(PhotoGrid, _React$Component);
 	
 		function PhotoGrid(props) {
 			_classCallCheck(this, PhotoGrid);
@@ -137,7 +96,7 @@
 				// build photo cards
 				var photos = this.props.photos.map(function (photo) {
 					var photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_m.jpg";
-					return _react2.default.createElement(Photo, { key: photo.owner, src: photoSrc, title: photo.title });
+					return _react2.default.createElement(_Photo2.default, { key: photo.owner, src: photoSrc, title: photo.title });
 				});
 	
 				// return a grid of photo cards
@@ -155,16 +114,16 @@
 	// search input
 	
 	
-	var SearchInput = function (_React$Component3) {
-		_inherits(SearchInput, _React$Component3);
+	var SearchInput = function (_React$Component2) {
+		_inherits(SearchInput, _React$Component2);
 	
 		function SearchInput(props) {
 			_classCallCheck(this, SearchInput);
 	
-			var _this3 = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
 	
-			_this3.handleInput = _this3.handleInput.bind(_this3);
-			return _this3;
+			_this2.handleInput = _this2.handleInput.bind(_this2);
+			return _this2;
 		}
 	
 		_createClass(SearchInput, [{
@@ -182,22 +141,22 @@
 		return SearchInput;
 	}(_react2.default.Component);
 	
-	var Layout = function (_React$Component4) {
-		_inherits(Layout, _React$Component4);
+	var Layout = function (_React$Component3) {
+		_inherits(Layout, _React$Component3);
 	
 		function Layout(props) {
 			_classCallCheck(this, Layout);
 	
-			var _this4 = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+			var _this3 = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 	
-			_this4.searchInputChange = _this4.searchInputChange.bind(_this4);
+			_this3.searchInputChange = _this3.searchInputChange.bind(_this3);
 	
-			_this4.state = {
+			_this3.state = {
 				'state': 'loading',
 				'photos': [],
 				'tags': ''
 			};
-			return _this4;
+			return _this3;
 		}
 	
 		_createClass(Layout, [{
@@ -22257,6 +22216,78 @@
 	
 	module.exports = ReactDOMInvalidARIAHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
+
+/***/ },
+/* 178 */
+/*!**********************************!*\
+  !*** ./src/client/app/Photo.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// photo component..
+	var Photo = function (_React$Component) {
+	  _inherits(Photo, _React$Component);
+	
+	  function Photo(props) {
+	    _classCallCheck(this, Photo);
+	
+	    // default src and title
+	    var _this = _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).call(this, props));
+	
+	    _this.src = '';
+	    _this.title = '';
+	    return _this;
+	  }
+	
+	  _createClass(Photo, [{
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.title || !this.props.src) {
+	        // display a loading symbol if image hasn't loaded
+	        return _react2.default.createElement('div', { className: 'mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' });
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'photo mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--2dp' },
+	        _react2.default.createElement('img', { src: this.props.src }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'mdl-card__title' },
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            this.props.title
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Photo;
+	}(_react2.default.Component);
+	
+	exports.default = Photo;
 
 /***/ }
 /******/ ]);
