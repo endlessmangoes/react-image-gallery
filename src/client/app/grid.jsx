@@ -70,7 +70,7 @@ class SearchInput extends React.Component {
 	}
 
 	handleInput(event) {
-		this.setState({'tags': event.target.value});
+		this.props.onChange(event.target.value);
 	}
 
   render() {
@@ -96,13 +96,20 @@ class Layout extends React.Component {
 		this.getPhotos();
 	}
 
-	getPhotos(props) {
+	getPhotos(tags) {
+		// default get url for photos
+		var url = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent";
+		if (tags) {
+			// update get url for photos based on user criteria.
+			url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
+		}
 
-		debugger;
+		url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?";
+
 		return $.getJSON({
 			type: "get",
 			dataType: 'json',
-			url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
+			url:  url
 		}).done(function(result) {
 			console.info(result.stat);
 			this.setState({
@@ -113,6 +120,7 @@ class Layout extends React.Component {
 
 	searchInputChange(value) {
 		this.setState({ tags: value });
+		this.getPhotos(value);
 	}
 
 	render() {
@@ -129,7 +137,7 @@ class Layout extends React.Component {
 								<i className="material-icons">search</i>
 							</label>
 							<div className="mdl-textfield__expandable-holder" id="search-container">
-								<SearchInput tags={tags} />
+								<SearchInput tags={tags} onChange={this.searchInputChange} />
 							</div>
 						</div>
 					</div>

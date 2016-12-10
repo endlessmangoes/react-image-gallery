@@ -170,7 +170,7 @@
 		_createClass(SearchInput, [{
 			key: 'handleInput',
 			value: function handleInput(event) {
-				this.setState({ 'tags': event.target.value });
+				this.props.onChange(event.target.value);
 			}
 		}, {
 			key: 'render',
@@ -207,13 +207,20 @@
 			}
 		}, {
 			key: 'getPhotos',
-			value: function getPhotos(props) {
+			value: function getPhotos(tags) {
+				// default get url for photos
+				var url = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent";
+				if (tags) {
+					// update get url for photos based on user criteria.
+					url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
+				}
 	
-				debugger;
+				url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?";
+	
 				return $.getJSON({
 					type: "get",
 					dataType: 'json',
-					url: "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?"
+					url: url
 				}).done(function (result) {
 					console.info(result.stat);
 					this.setState({
@@ -225,6 +232,7 @@
 			key: 'searchInputChange',
 			value: function searchInputChange(value) {
 				this.setState({ tags: value });
+				this.getPhotos(value);
 			}
 		}, {
 			key: 'render',
@@ -257,7 +265,7 @@
 								_react2.default.createElement(
 									'div',
 									{ className: 'mdl-textfield__expandable-holder', id: 'search-container' },
-									_react2.default.createElement(SearchInput, { tags: tags })
+									_react2.default.createElement(SearchInput, { tags: tags, onChange: this.searchInputChange })
 								)
 							)
 						)
