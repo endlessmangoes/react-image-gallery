@@ -110,14 +110,17 @@
 					url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
 				}
 	
-				url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?";
+				// api key
+				url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" +
+				// format
+				"&format=json&jsoncallback=?";
 	
 				return $.getJSON({
 					type: "get",
 					dataType: 'json',
 					url: url
 				}).done(function (result) {
-					console.info(result.stat);
+					// update layout state to photos.
 					this.setState({
 						'photos': result.photos.photo
 					});
@@ -128,6 +131,12 @@
 			value: function searchInputChange(value) {
 				this.setState({ tags: value });
 				this.getPhotos(value);
+			}
+		}, {
+			key: 'toggleNav',
+			value: function toggleNav() {
+				var d = document.querySelector('.mdl-layout');
+				d.MaterialLayout.toggleDrawer();
 			}
 		}, {
 			key: 'render',
@@ -144,7 +153,15 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'mdl-layout__header-row' },
-							_react2.default.createElement('div', { className: 'mdl-layout-spacer' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'mdl-layout-spacer' },
+								_react2.default.createElement(
+									'h1',
+									null,
+									'Photo Gallery'
+								)
+							),
 							_react2.default.createElement(
 								'div',
 								{ className: 'mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right' },
@@ -178,8 +195,8 @@
 							{ className: 'mdl-navigation' },
 							_react2.default.createElement(
 								'a',
-								{ className: 'mdl-navigation__link', href: '#' },
-								'Menu'
+								{ className: 'mdl-navigation__link', onClick: this.toggleNav, href: '#search', htmlFor: 'search' },
+								'Search'
 							)
 						)
 					),

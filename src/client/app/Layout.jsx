@@ -28,14 +28,17 @@ class Layout extends React.Component {
 			url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
 		}
 
-		url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd&format=json&jsoncallback=?";
+		// api key
+		url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" +
+			// format
+			"&format=json&jsoncallback=?";
 
 		return $.getJSON({
 			type: "get",
 			dataType: 'json',
 			url:  url
 		}).done(function(result) {
-			console.info(result.stat);
+			// update layout state to photos.
 			this.setState({
 				'photos': result.photos.photo
 			});
@@ -47,6 +50,11 @@ class Layout extends React.Component {
 		this.getPhotos(value);
 	}
 
+	toggleNav() {
+		let d = document.querySelector('.mdl-layout');
+		d.MaterialLayout.toggleDrawer();
+	}
+
 	render() {
 		const tags = this.state.tags;
 		const photos = this.state.photos;
@@ -55,7 +63,9 @@ class Layout extends React.Component {
 			<div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 				<header className="mdl-layout__header">
 					<div className="mdl-layout__header-row">
-						<div className="mdl-layout-spacer"></div>
+						<div className="mdl-layout-spacer">
+							<h1>Photo Gallery</h1>
+						</div>
 						<div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
 							<label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="search">
 								<i className="material-icons">search</i>
@@ -69,7 +79,7 @@ class Layout extends React.Component {
 				<div className="mdl-layout__drawer">
 					<span className="mdl-layout-title">Photo Gallery</span>
 					<nav className="mdl-navigation">
-						<a className="mdl-navigation__link" href="#">Menu</a>
+						<a className="mdl-navigation__link" onClick={this.toggleNav} href="#search" htmlFor="search">Search</a>
 					</nav>
 				</div>
 				<main className="mdl-layout__content">
