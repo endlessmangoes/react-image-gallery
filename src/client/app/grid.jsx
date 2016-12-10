@@ -101,10 +101,68 @@ class SearchInput extends React.Component {
 	}
 
 	handleInput(event) {
-		// basic user validation
-		if (!event.target.value) {
-			return false;
+		this.setState({'tags': event.target.value});
+	}
+
+  render() {
+    return (
+			 <input className='mdl-textfield__input' type="text" name="search" id="search" onChange={this.handleInput} />
+    );
+  }
+}
+
+class Layout extends React.Component {
+	constructor(props) {
+		super(props);
+		this.searchInputChange = this.searchInputChange.bind(this);
+
+		this.setState = {
+			'state': 'loading',
+			'photos': [],
+			'tags': ''
 		}
+	}
+
+	searchInputChange(value) {
+		this.setState({ tags: value });
+	}
+
+	render() {
+		const tags = this.setState.tags;
+		return (
+			<div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+				<header className="mdl-layout__header">
+					<div className="mdl-layout__header-row">
+						<div className="mdl-layout-spacer"></div>
+						<div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+							<label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="search">
+								<i className="material-icons">search</i>
+							</label>
+							<div className="mdl-textfield__expandable-holder" id="search-container">
+								<SearchInput tags={tags} />
+							</div>
+						</div>
+					</div>
+				</header>
+				<div className="mdl-layout__drawer">
+					<span className="mdl-layout-title">Photo Gallery</span>
+					<nav className="mdl-navigation">
+						<a className="mdl-navigation__link" href="#">Menu</a>
+					</nav>
+				</div>
+				<main className="mdl-layout__content">
+					<div className="page-content">
+						<PhotoGrid photos={data}></PhotoGrid>
+					</div>
+				</main>
+			</div>
+		);
+	}
+}
+
+render(React.createElement(Layout), document.getElementById('app'));
+
+/*
 
 		let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bcc3bbb71c12693b4f2fde281bd75cdd"
 			+ "&tags='" + event.target.value + "'&format=json&jsoncallback=?";
@@ -116,35 +174,4 @@ class SearchInput extends React.Component {
 			.error(function(error) {
 		  	console.log('Issue trying to get..: ' + error.message);
 			});
-	}
-
-  render() {
-    return (
-			 <input className='mdl-textfield__input' type="text" name="search" id="search" onChange={this._handleInput} />
-    );
-  }
-}
-
-class Layout extends React.Component {
-	constructor(props) {
-		super(props);
-		this.SearchInputChange = this.SearchInputChange.bind(this);
-
-		this.setState = {
-			'state': 'loading',
-			'photos': []
-		}
-	}
-
-	render() {
-		return (
-			<PhotoGrid photos={data}>
-				<SearchInput></SearchInput>
-			</PhotoGrid>
-		)
-	}
-
-
-}
-
-render(Layout, document.getElementById('app'));
+			*/

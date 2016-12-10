@@ -205,23 +205,12 @@
 		_createClass(SearchInput, [{
 			key: 'handleInput',
 			value: function handleInput(event) {
-				// basic user validation
-				if (!event.target.value) {
-					return false;
-				}
-	
-				var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" + "&tags='" + event.target.value + "'&format=json&jsoncallback=?";
-	
-				$.getJSON(url).done(function (req, res) {
-					debugger;
-				}).error(function (error) {
-					console.log('Issue trying to get..: ' + error.message);
-				});
+				this.setState({ 'tags': event.target.value });
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('input', { className: 'mdl-textfield__input', type: 'text', name: 'search', id: 'search', onChange: this._handleInput });
+				return _react2.default.createElement('input', { className: 'mdl-textfield__input', type: 'text', name: 'search', id: 'search', onChange: this.handleInput });
 			}
 		}]);
 	
@@ -236,22 +225,82 @@
 	
 			var _this4 = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 	
-			_this4.SearchInputChange = _this4.SearchInputChange.bind(_this4);
+			_this4.searchInputChange = _this4.searchInputChange.bind(_this4);
 	
 			_this4.setState = {
 				'state': 'loading',
-				'photos': []
+				'photos': [],
+				'tags': ''
 			};
 			return _this4;
 		}
 	
 		_createClass(Layout, [{
+			key: 'searchInputChange',
+			value: function searchInputChange(value) {
+				this.setState({ tags: value });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var tags = this.setState.tags;
 				return _react2.default.createElement(
-					PhotoGrid,
-					{ photos: data },
-					_react2.default.createElement(SearchInput, null)
+					'div',
+					{ className: 'mdl-layout mdl-js-layout mdl-layout--fixed-header' },
+					_react2.default.createElement(
+						'header',
+						{ className: 'mdl-layout__header' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'mdl-layout__header-row' },
+							_react2.default.createElement('div', { className: 'mdl-layout-spacer' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right' },
+								_react2.default.createElement(
+									'label',
+									{ className: 'mdl-button mdl-js-button mdl-button--icon', htmlFor: 'search' },
+									_react2.default.createElement(
+										'i',
+										{ className: 'material-icons' },
+										'search'
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'mdl-textfield__expandable-holder', id: 'search-container' },
+									_react2.default.createElement(SearchInput, { tags: tags })
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'mdl-layout__drawer' },
+						_react2.default.createElement(
+							'span',
+							{ className: 'mdl-layout-title' },
+							'Photo Gallery'
+						),
+						_react2.default.createElement(
+							'nav',
+							{ className: 'mdl-navigation' },
+							_react2.default.createElement(
+								'a',
+								{ className: 'mdl-navigation__link', href: '#' },
+								'Menu'
+							)
+						)
+					),
+					_react2.default.createElement(
+						'main',
+						{ className: 'mdl-layout__content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'page-content' },
+							_react2.default.createElement(PhotoGrid, { photos: data })
+						)
+					)
 				);
 			}
 		}]);
@@ -259,7 +308,21 @@
 		return Layout;
 	}(_react2.default.Component);
 	
-	(0, _reactDom.render)(Layout, document.getElementById('app'));
+	(0, _reactDom.render)(_react2.default.createElement(Layout), document.getElementById('app'));
+	
+	/*
+	
+			let url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bcc3bbb71c12693b4f2fde281bd75cdd"
+				+ "&tags='" + event.target.value + "'&format=json&jsoncallback=?";
+
+			$.getJSON(url)
+				.done(function(req, res) {
+			  	debugger;
+				})
+				.error(function(error) {
+			  	console.log('Issue trying to get..: ' + error.message);
+				});
+				*/
 
 /***/ },
 /* 1 */
