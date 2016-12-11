@@ -63,7 +63,6 @@ class Layout extends React.Component {
 				<header className="mdl-layout__header">
 					<div className="mdl-layout__header-row">
 						<div className="mdl-layout-spacer">
-							<h1>Photo Gallery</h1>
 						</div>
 						<div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
 							<label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="search">
@@ -82,9 +81,7 @@ class Layout extends React.Component {
 					</nav>
 				</div>
 				<main className="mdl-layout__content">
-					<div className="page-content">
-						<PhotoGrid photos={photos}></PhotoGrid>
-					</div>
+					<PhotoGrid photos={photos}></PhotoGrid>
 				</main>
 			</div>
 		);
