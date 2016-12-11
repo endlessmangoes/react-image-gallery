@@ -57,10 +57,6 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
-	var _Photo = __webpack_require__(/*! ./Photo.jsx */ 178);
-	
-	var _Photo2 = _interopRequireDefault(_Photo);
-	
 	var _PhotoGrid = __webpack_require__(/*! ./PhotoGrid.jsx */ 179);
 	
 	var _PhotoGrid2 = _interopRequireDefault(_PhotoGrid);
@@ -133,8 +129,8 @@
 				this.getPhotos(value);
 			}
 		}, {
-			key: 'toggleNav',
-			value: function toggleNav() {
+			key: 'toggleSidebar',
+			value: function toggleSidebar() {
 				var d = document.querySelector('.mdl-layout');
 				d.MaterialLayout.toggleDrawer();
 			}
@@ -195,7 +191,7 @@
 							{ className: 'mdl-navigation' },
 							_react2.default.createElement(
 								'a',
-								{ className: 'mdl-navigation__link', onClick: this.toggleNav, href: '#search', htmlFor: 'search' },
+								{ className: 'mdl-navigation__link', onClick: this.toggleSidebar, href: '#search', htmlFor: 'search' },
 								'Search'
 							)
 						)

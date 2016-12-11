@@ -1,6 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Photo from './Photo.jsx';
 import PhotoGrid from './PhotoGrid.jsx';
 import SearchInput from './SearchInput.jsx';
 
@@ -50,7 +49,7 @@ class Layout extends React.Component {
 		this.getPhotos(value);
 	}
 
-	toggleNav() {
+	toggleSidebar() {
 		let d = document.querySelector('.mdl-layout');
 		d.MaterialLayout.toggleDrawer();
 	}
@@ -79,7 +78,7 @@ class Layout extends React.Component {
 				<div className="mdl-layout__drawer">
 					<span className="mdl-layout-title">Photo Gallery</span>
 					<nav className="mdl-navigation">
-						<a className="mdl-navigation__link" onClick={this.toggleNav} href="#search" htmlFor="search">Search</a>
+						<a className="mdl-navigation__link" onClick={this.toggleSidebar} href="#search" htmlFor="search">Search</a>
 					</nav>
 				</div>
 				<main className="mdl-layout__content">
