@@ -5,27 +5,24 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
 
-		// default src and title
+    // default image url (source) and title
     this.src = '';
-		this.title = '';
+    this.title = '';
   }
 
   render() {
-		if (!this.props.title || !this.props.src) {
-			// display a loading symbol if image hasn't loaded
-			return (
-				<div className='photo mdl-card mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp'>
-					<div className="gallery-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-				</div>
-			);
-		}
+		// if the source url for the image is not set,
+    if (!this.props.src) {
+        // if there isn't a title or src, don't render a card
+        return false;
+    }
 
     return (
       <div className='photo mdl-card mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp'>
-        <img src={this.props.src} />
+				<img src={this.props.src}/>
 
         <div className='mdl-card__title'>
-          <span>{this.props.title}</span>
+            <span>{this.props.title}</span>
         </div>
       </div>
     )

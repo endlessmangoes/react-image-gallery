@@ -73,131 +73,129 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	/* Main layout component: contains navigation, header, and grid. */
 	var Layout = function (_React$Component) {
-		_inherits(Layout, _React$Component);
+	  _inherits(Layout, _React$Component);
 	
-		function Layout(props) {
-			_classCallCheck(this, Layout);
+	  function Layout(props) {
+	    _classCallCheck(this, Layout);
 	
-			var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
 	
-			_this.searchInputChange = _this.searchInputChange.bind(_this);
+	    _this.searchInputChange = _this.searchInputChange.bind(_this);
 	
-			_this.state = {
-				'state': 'loading',
-				'photos': [],
-				'tags': ''
-			};
-			return _this;
-		}
+	    _this.state = {
+	      'state': 'loading',
+	      'photos': [],
+	      'tags': ''
+	    };
+	    return _this;
+	  }
 	
-		_createClass(Layout, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				this.getPhotos();
-			}
-		}, {
-			key: 'getPhotos',
-			value: function getPhotos(tags) {
-				// default get url for photos
-				var url = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent";
-				if (tags) {
-					// update get url for photos based on user criteria.
-					url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
-				}
+	  // trigger a call to get photos
 	
-				// api key
-				url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" +
-				// format
-				"&format=json&jsoncallback=?";
 	
-				return $.getJSON({
-					type: "get",
-					dataType: 'json',
-					url: url
-				}).done(function (result) {
-					// update layout state to photos.
-					this.setState({
-						'photos': result.photos.photo
-					});
-				}.bind(this));
-			}
-		}, {
-			key: 'searchInputChange',
-			value: function searchInputChange(value) {
-				this.setState({ tags: value });
-				this.getPhotos(value);
-			}
-		}, {
-			key: 'toggleSidebar',
-			value: function toggleSidebar() {
-				var d = document.querySelector('.mdl-layout');
-				d.MaterialLayout.toggleDrawer();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var tags = this.state.tags;
-				var photos = this.state.photos;
+	  _createClass(Layout, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getPhotos();
+	    }
+	  }, {
+	    key: 'getPhotos',
+	    value: function getPhotos(tags) {
+	      // default get url for photos
+	      var url = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent";
+	      if (tags) {
+	        // update get url for photos based on user criteria.
+	        url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
+	      }
 	
-				return _react2.default.createElement(
-					'div',
-					{ className: 'mdl-layout mdl-js-layout mdl-layout--fixed-header' },
-					_react2.default.createElement(
-						'header',
-						{ className: 'mdl-layout__header' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'mdl-layout__header-row' },
-							_react2.default.createElement('div', { className: 'mdl-layout-spacer' }),
-							_react2.default.createElement(
-								'div',
-								{ className: 'mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right' },
-								_react2.default.createElement(
-									'label',
-									{ className: 'mdl-button mdl-js-button mdl-button--icon', htmlFor: 'search' },
-									_react2.default.createElement(
-										'i',
-										{ className: 'material-icons' },
-										'search'
-									)
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'mdl-textfield__expandable-holder', id: 'search-container' },
-									_react2.default.createElement(_SearchInput2.default, { tags: tags, onChange: this.searchInputChange })
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'mdl-layout__drawer' },
-						_react2.default.createElement(
-							'span',
-							{ className: 'mdl-layout-title' },
-							'Photo Gallery'
-						),
-						_react2.default.createElement(
-							'nav',
-							{ className: 'mdl-navigation' },
-							_react2.default.createElement(
-								'a',
-								{ className: 'mdl-navigation__link', onClick: this.toggleSidebar, href: '#search', htmlFor: 'search' },
-								'Search'
-							)
-						)
-					),
-					_react2.default.createElement(
-						'main',
-						{ className: 'mdl-layout__content' },
-						_react2.default.createElement(_PhotoGrid2.default, { photos: photos })
-					)
-				);
-			}
-		}]);
+	      // api key
+	      url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" +
+	      // format
+	      "&format=json&jsoncallback=?";
 	
-		return Layout;
+	      return $.getJSON({ type: "get", dataType: 'json', url: url }).done(function (result) {
+	        // update layout state to photos.
+	        this.setState({ 'photos': result.photos.photo });
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'searchInputChange',
+	    value: function searchInputChange(value) {
+	      this.setState({ tags: value });
+	      this.getPhotos(value);
+	    }
+	  }, {
+	    key: 'toggleSidebar',
+	    value: function toggleSidebar() {
+	      var d = document.querySelector('.mdl-layout');
+	      d.MaterialLayout.toggleDrawer();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var tags = this.state.tags;
+	      var photos = this.state.photos;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mdl-layout mdl-js-layout mdl-layout--fixed-header' },
+	        _react2.default.createElement(
+	          'header',
+	          { className: 'mdl-layout__header' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'mdl-layout__header-row' },
+	            _react2.default.createElement('div', { className: 'mdl-layout-spacer' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'mdl-button mdl-js-button mdl-button--icon', htmlFor: 'search' },
+	                _react2.default.createElement(
+	                  'i',
+	                  { className: 'material-icons' },
+	                  'search'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'mdl-textfield__expandable-holder', id: 'search-container' },
+	                _react2.default.createElement(_SearchInput2.default, { tags: tags, onChange: this.searchInputChange })
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'mdl-layout__drawer' },
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'mdl-layout-title' },
+	            'Photo Gallery'
+	          ),
+	          _react2.default.createElement(
+	            'nav',
+	            { className: 'mdl-navigation' },
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'mdl-navigation__link', onClick: this.toggleSidebar, href: '#search', htmlFor: 'search' },
+	              'Search'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'main',
+	          { className: 'mdl-layout__content' },
+	          _react2.default.createElement(_PhotoGrid2.default, { photos: photos })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Layout;
 	}(_react2.default.Component);
 	
 	(0, _reactDom.render)(_react2.default.createElement(Layout, null), document.getElementById('app'));
@@ -22150,7 +22148,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -22171,43 +22169,44 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// photo grid..
+	// photo grid component: renders a grid of images
 	var PhotoGrid = function (_React$Component) {
-		_inherits(PhotoGrid, _React$Component);
+	  _inherits(PhotoGrid, _React$Component);
 	
-		function PhotoGrid(props) {
-			_classCallCheck(this, PhotoGrid);
+	  function PhotoGrid(props) {
+	    _classCallCheck(this, PhotoGrid);
 	
-			return _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).call(this, props));
-		}
+	    return _possibleConstructorReturn(this, (PhotoGrid.__proto__ || Object.getPrototypeOf(PhotoGrid)).call(this, props));
+	  }
 	
-		_createClass(PhotoGrid, [{
-			key: 'render',
-			value: function render() {
-				if (this.props.photos.length < 1) {
-					return _react2.default.createElement(
-						'div',
-						{ className: 'photo mdl-card mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp' },
-						_react2.default.createElement('div', { className: 'gallery-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' })
-					);
-				}
+	  _createClass(PhotoGrid, [{
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.photos.length < 1) {
+	        // If there aren't any photos within the Photo Grid, display a loading symbol
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'flex center' },
+	          _react2.default.createElement('div', { className: 'gallery-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' })
+	        );
+	      }
 	
-				// build photo cards
-				var photos = this.props.photos.map(function (photo) {
-					var photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_m.jpg";
-					return _react2.default.createElement(_Photo2.default, { key: photo.owner, src: photoSrc, title: photo.title });
-				});
+	      // build photo cards
+	      var photos = this.props.photos.map(function (photo) {
+	        var photoSrc = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_m.jpg";
+	        return _react2.default.createElement(_Photo2.default, { key: photo.owner, src: photoSrc, title: photo.title });
+	      });
 	
-				// return a grid of photo cards
-				return _react2.default.createElement(
-					'div',
-					{ className: 'mdl-grid' },
-					photos
-				);
-			}
-		}]);
+	      // return a grid of photo cards
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mdl-grid center' },
+	        photos
+	      );
+	    }
+	  }]);
 	
-		return PhotoGrid;
+	  return PhotoGrid;
 	}(_react2.default.Component);
 	
 	exports.default = PhotoGrid;
@@ -22246,7 +22245,7 @@
 	  function Photo(props) {
 	    _classCallCheck(this, Photo);
 	
-	    // default src and title
+	    // default image url (source) and title
 	    var _this = _possibleConstructorReturn(this, (Photo.__proto__ || Object.getPrototypeOf(Photo)).call(this, props));
 	
 	    _this.src = '';
@@ -22257,13 +22256,10 @@
 	  _createClass(Photo, [{
 	    key: 'render',
 	    value: function render() {
-	      if (!this.props.title || !this.props.src) {
-	        // display a loading symbol if image hasn't loaded
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'photo mdl-card mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp' },
-	          _react2.default.createElement('div', { className: 'gallery-loader mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active' })
-	        );
+	      // if the source url for the image is not set,
+	      if (!this.props.src) {
+	        // if there isn't a title or src, don't render a card
+	        return false;
 	      }
 	
 	      return _react2.default.createElement(
@@ -22298,7 +22294,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -22315,32 +22311,32 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// search input
+	// search input component: on input, passes the value to parent component.
 	var SearchInput = function (_React$Component) {
-		_inherits(SearchInput, _React$Component);
+	  _inherits(SearchInput, _React$Component);
 	
-		function SearchInput(props) {
-			_classCallCheck(this, SearchInput);
+	  function SearchInput(props) {
+	    _classCallCheck(this, SearchInput);
 	
-			var _this = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SearchInput.__proto__ || Object.getPrototypeOf(SearchInput)).call(this, props));
 	
-			_this.handleInput = _this.handleInput.bind(_this);
-			return _this;
-		}
+	    _this.handleInput = _this.handleInput.bind(_this);
+	    return _this;
+	  }
 	
-		_createClass(SearchInput, [{
-			key: 'handleInput',
-			value: function handleInput(event) {
-				this.props.onChange(event.target.value);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement('input', { className: 'mdl-textfield__input', type: 'text', name: 'search', id: 'search', onChange: this.handleInput });
-			}
-		}]);
+	  _createClass(SearchInput, [{
+	    key: 'handleInput',
+	    value: function handleInput(event) {
+	      this.props.onChange(event.target.value);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('input', { className: 'mdl-textfield__input', type: 'text', name: 'search', id: 'search', onChange: this.handleInput });
+	    }
+	  }]);
 	
-		return SearchInput;
+	  return SearchInput;
 	}(_react2.default.Component);
 	
 	exports.default = SearchInput;
