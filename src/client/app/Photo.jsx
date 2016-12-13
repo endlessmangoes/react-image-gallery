@@ -5,15 +5,13 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
 
-    // default image url (source) and title
     this.src = '';
     this.title = '';
   }
 
   render() {
-		// if the source url for the image is not set,
+		// if no img source url
     if (!this.props.src) {
-        // if there isn't a title or src, don't render a card
         return false;
     }
 

@@ -30,7 +30,7 @@ class Layout extends React.Component {
     }
 
     // api key
-    url += "&api_key=bcc3bbb71c12693b4f2fde281bd75cdd" +
+    url += "&api_key=" + process.env.FLICKRAPIKEY +
     // format
     "&format=json&jsoncallback=?";
 
@@ -83,4 +83,4 @@ class Layout extends React.Component {
   }
 }
 
-render(<Layout/>, document.getElementById('app'));
+export default Layout;
