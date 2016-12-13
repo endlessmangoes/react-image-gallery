@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 import PhotoGrid from './PhotoGrid.jsx';
 import SearchInput from './SearchInput.jsx';
 
+const request = require('superagent');
+
 /* Main layout component: contains navigation, header, and grid. */
 class Layout extends React.Component {
   constructor(props) {
@@ -29,15 +31,14 @@ class Layout extends React.Component {
       url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=" + tags;
     }
 
-    // api key
-    url += "&api_key=" + process.env.FLICKRAPIKEY +
-    // format
-    "&format=json&jsoncallback=?";
-
-    return $.getJSON({type: "get", dataType: 'json', url: url}).done(function(result) {
-      // update layout state to photos.
-      this.setState({'photos': result.photos.photo});
-    }.bind(this));
+    return request.get(url)
+			.query('api_key=' + process.env.FLICKRAPIKEY)
+			.query('format=json')
+			.query('nojsoncallback=?')
+			.end(function(err, result) {
+					let flickrResponse = JSON.parse(result.text);
+		      this.setState({'photos': flickrResponse.photos.photo});
+				}.bind(this));
   }
 
   searchInputChange(value) {
