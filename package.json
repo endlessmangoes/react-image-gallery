@@ -2,7 +2,7 @@
   "name": "photo-gallery-react",
   "version": "1.0.1",
   "description": "A photo gallery using flickr api, allowing users to view images and search flickr for images.",
-  "main": "init.jsx",
+  "main": "Init.jsx",
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p",
