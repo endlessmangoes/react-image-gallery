@@ -21452,6 +21452,10 @@
 
 	var _SearchInput2 = _interopRequireDefault(_SearchInput);
 
+	var _Sidebar = __webpack_require__(182);
+
+	var _Sidebar2 = _interopRequireDefault(_Sidebar);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21460,7 +21464,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var request = __webpack_require__(182);
+	var request = __webpack_require__(183);
 
 	/* Main layout component: contains navigation, header, and grid. */
 
@@ -21512,12 +21516,6 @@
 	      this.getPhotos(value);
 	    }
 	  }, {
-	    key: 'toggleSidebar',
-	    value: function toggleSidebar() {
-	      var d = document.querySelector('.mdl-layout');
-	      d.MaterialLayout.toggleDrawer();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var tags = this.state.tags;
@@ -21553,24 +21551,7 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'mdl-layout__drawer' },
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'mdl-layout-title' },
-	            'Photo Gallery'
-	          ),
-	          _react2.default.createElement(
-	            'nav',
-	            { className: 'mdl-navigation' },
-	            _react2.default.createElement(
-	              'a',
-	              { className: 'mdl-navigation__link', onClick: this.toggleSidebar, href: '#search', htmlFor: 'search' },
-	              'Search'
-	            )
-	          )
-	        ),
+	        _react2.default.createElement(_Sidebar2.default, null),
 	        _react2.default.createElement(
 	          'main',
 	          { className: 'mdl-layout__content' },
@@ -21781,6 +21762,76 @@
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Sidebar = function (_React$Component) {
+	  _inherits(Sidebar, _React$Component);
+
+	  function Sidebar(props) {
+	    _classCallCheck(this, Sidebar);
+
+	    return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
+	  }
+
+	  _createClass(Sidebar, [{
+	    key: 'toggleSidebar',
+	    value: function toggleSidebar() {
+	      var d = document.querySelector('.mdl-layout');
+	      d.MaterialLayout.toggleDrawer();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'mdl-layout__drawer' },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'mdl-layout-title' },
+	          'Photo Gallery'
+	        ),
+	        _react2.default.createElement(
+	          'nav',
+	          { className: 'mdl-navigation' },
+	          _react2.default.createElement(
+	            'a',
+	            { className: 'mdl-navigation__link', onClick: this.toggleSidebar, href: '#search', htmlFor: 'search' },
+	            'Search'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Sidebar;
+	}(_react2.default.Component);
+
+	exports.default = Sidebar;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Root reference for iframes.
 	 */
@@ -21795,11 +21846,11 @@
 	  root = this;
 	}
 
-	var Emitter = __webpack_require__(183);
-	var RequestBase = __webpack_require__(184);
-	var isObject = __webpack_require__(185);
-	var isFunction = __webpack_require__(186);
-	var ResponseBase = __webpack_require__(187);
+	var Emitter = __webpack_require__(184);
+	var RequestBase = __webpack_require__(185);
+	var isObject = __webpack_require__(186);
+	var isFunction = __webpack_require__(187);
+	var ResponseBase = __webpack_require__(188);
 
 	/**
 	 * Noop.
@@ -22693,7 +22744,7 @@
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -22862,13 +22913,13 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(185);
+	var isObject = __webpack_require__(186);
 
 	/**
 	 * Expose `RequestBase`.
@@ -23410,7 +23461,7 @@
 
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -23429,7 +23480,7 @@
 
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23439,7 +23490,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(185);
+	var isObject = __webpack_require__(186);
 
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -23450,7 +23501,7 @@
 
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -23458,7 +23509,7 @@
 	 * Module dependencies.
 	 */
 
-	var utils = __webpack_require__(188);
+	var utils = __webpack_require__(189);
 
 	/**
 	 * Expose `ResponseBase`.
@@ -23589,7 +23640,7 @@
 
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports) {
 
 	

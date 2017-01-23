@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import PhotoGrid from './PhotoGrid.jsx';
 import SearchInput from './SearchInput.jsx';
+import Sidebar from './Sidebar.jsx';
 
 const request = require('superagent');
 
@@ -46,11 +47,6 @@ class Layout extends React.Component {
     this.getPhotos(value);
   }
 
-  toggleSidebar() {
-    let d = document.querySelector('.mdl-layout');
-    d.MaterialLayout.toggleDrawer();
-  }
-
   render() {
     const tags = this.state.tags;
     const photos = this.state.photos;
@@ -70,12 +66,7 @@ class Layout extends React.Component {
             </div>
           </div>
         </header>
-        <div className="mdl-layout__drawer">
-          <span className="mdl-layout-title">Photo Gallery</span>
-          <nav className="mdl-navigation">
-            <a className="mdl-navigation__link" onClick={this.toggleSidebar} href="#search" htmlFor="search">Search</a>
-          </nav>
-        </div>
+        <Sidebar />
         <main className="mdl-layout__content">
           <PhotoGrid photos={photos}></PhotoGrid>
         </main>
