@@ -9,9 +9,3 @@ if (!process.env.FLICKRAPIKEY) {
 }
 
 render(<Layout/>, document.getElementById('app'));
-
-render(<Router>
-        <Route path="/" component={ Home }/>
-        <Route path="/search" component={ SearchablePhotoGrid }/>
-    </Router>,
-	)

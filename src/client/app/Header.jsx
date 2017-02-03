@@ -1,10 +1,16 @@
 import React from 'react';
 import {render} from 'react-dom';
-
+import SearchInput from './SearchInput.jsx';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this.handleInput = this.handleInput.bind(this);
+  }
+
+
+  handleInput(event) {
+    this.props.onChange(event);
   }
 
   render() {
@@ -17,7 +23,7 @@ class Header extends React.Component {
               <i className="material-icons">search</i>
             </label>
             <div className="mdl-textfield__expandable-holder" id="search-container">
-              <SearchInput tags={tags} onChange={this.searchInputChange}/>
+              <SearchInput tags={this.props.tags} onChange={this.handleInput}/>
             </div>
           </div>
         </div>
@@ -26,4 +32,4 @@ class Header extends React.Component {
   }
 }
 
-default export Header;
+export default Header;

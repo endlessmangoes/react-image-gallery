@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 import PhotoGrid from './PhotoGrid.jsx';
-import SearchInput from './SearchInput.jsx';
 import Sidebar from './Sidebar.jsx';
+import Header from './Header.jsx';
 
 const request = require('superagent');
 
@@ -48,15 +48,12 @@ class Layout extends React.Component {
   }
 
   render() {
-    const tags = this.state.tags;
-    const photos = this.state.photos;
-
     return (
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <Header />
+        <Header tags={ this.state.tags } onChange={ this.searchInputChange } />
         <Sidebar />
         <main className="mdl-layout__content">
-          <PhotoGrid photos={photos}></PhotoGrid>
+          <PhotoGrid photos={ this.state.photos }></PhotoGrid>
         </main>
       </div>
     );
